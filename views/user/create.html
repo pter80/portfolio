@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block stylesheet %}
+{% endblock %}
+
+
+{% block body %}
+    <h1>Création d'un utilisateur</h1>
+    <form action="?c=user&t=insert" method="POST">
+        Nom : <input type="text" name="nom"><br/>
+        Prénom : <input type="text" name="prenom"><br/>
+        Ville : <select name=ville> 
+        
+            {% for ville in villes %}
+               <option value={{ ville.ville_id }}> {{ ville.ville_nom }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit">
+    </form>
+{% endblock %}
+

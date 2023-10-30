@@ -1,0 +1,11 @@
+{
+    "autoload": {
+		"psr-4": {
+			"Controllers\\": "Controllers/"
+		}
+	},
+    "require": {
+        "twig/twig": "^3.0",
+        "symfony/routing": "^6.3"
+    }
+}
