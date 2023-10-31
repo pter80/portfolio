@@ -3,13 +3,23 @@
 namespace Controllers;
 
 use Symfony\Component\Routing\Annotation\Route;
+use User;
 
 class UserController extends Controller
 {
     public function one($params)
     {
         //savoir si un utilisateur existe deja
+        
+        $entityManager=$params["em"];
 	    $connectUser="Un seul";
+	    
+	    $user = new User();
+        $user->setNom("TERRAILLON");
+        $user->setPrenom("Maxime");
+        $entityManager->persist($user);
+        $entityManager->flush();
+        
 	    echo $this->twig->render('index.html', ['connectUser' =>   $connectUser,"params"=>$params]);
     }
     

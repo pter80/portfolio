@@ -2,7 +2,12 @@
     "autoload": {
 		"psr-4": {
 			"Controllers\\": "Controllers/"
-		}
+		},
+        "psr-0": {
+            "": "src/"
+            
+        }
+    
 	},
     "require": {
         "twig/twig": "^3.0",

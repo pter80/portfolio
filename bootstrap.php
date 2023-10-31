@@ -3,33 +3,25 @@
 use Doctrine\DBAL\DriverManager;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\ORMSetup;
-
+//use Doctrine\ORM\Tools\Setup;
 require_once "vendor/autoload.php";
 
-// Create a simple "default" Doctrine ORM configuration for Attributes
-//$config = ORMSetup::createAttributeMetadataConfiguration(
-//    paths: array(__DIR__."/Entity"),
-//    isDevMode: true,
-//);
-// or if you prefer annotation, YAML or XML
-$config = ORMSetup::createAnnotationMetadataConfiguration(
-    paths: array(__DIR__."/Entity"),
-    isDevMode: true,
+//$paths = array("/src","plop");
+$isDevMode = false;
+$proxyDir=false;
+$cache=null;
+// the connection configuration
+$dbParams = array(
+    'driver'   => 'pdo_mysql',
+    'user'     => 'pter_root',
+    'password' => 'plopplip',
+    'dbname'   => 'BTS',
 );
-// $config = ORMSetup::createXMLMetadataConfiguration(
-//    paths: array(__DIR__."/config/xml"),
-//    isDevMode: true,
-//);
-// $config = ORMSetup::createYAMLMetadataConfiguration(
-//    paths: array(__DIR__."/config/yaml"),
-//    isDevMode: true,
-// );
+$useSimpleAnnotationReader = false;
 
-// configuring the database connection
-$connection = DriverManager::getConnection([
-    'driver' => 'pdo_sqlite',
-    'path' => __DIR__ . '/db.sqlite',
-], $config);
+$config = ORMSetup::createAttributeMetadataConfiguration(array(__DIR__."/src"), $isDevMode, $proxyDir, $cache, $useSimpleAnnotationReader);
 
-// obtaining the entity manager
-$entityManager = new EntityManager($connection, $config);
+//$config = Setup::createAnnotationMetadataConfiguration($paths, $isDevMode);
+$entityManager = EntityManager::create($dbParams, $config);
+
+
