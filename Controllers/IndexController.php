@@ -8,7 +8,7 @@ class IndexController extends Controller
     {
         //savoir si un utilisateur existe deja
 	$connectUser="Philippe";
-    echo $this->twig->render('index.html', ['connectUser' => $connectUser]);
+    echo $this->twig->render('index.html', ['connectUser' =>   $connectUser]);
     }
     
     

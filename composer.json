@@ -6,6 +6,11 @@
 	},
     "require": {
         "twig/twig": "^3.0",
-        "symfony/routing": "^6.3"
+        "symfony/routing": "^6.3",
+        "doctrine/orm": "^2.16",
+        "doctrine/dbal": "^3.7",
+        "symfony/cache": "^6.3",
+        "doctrine/annotations": "^2.0",
+        "symfony/translation-contracts": "^3.3"
     }
 }

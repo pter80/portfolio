@@ -6,14 +6,14 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends Controller
 {
-    public function one($url)
+    public function one($params)
     {
         //savoir si un utilisateur existe deja
 	    $connectUser="Un seul";
-	    var_dump($url);
-        echo $this->twig->render('index.html', ['connectUser' =>   $connectUser]);
+	    echo $this->twig->render('index.html', ['connectUser' =>   $connectUser,"params"=>$params]);
     }
-    public function liste($url) {
+    
+    public function liste($params) {
         $connectUser="tous";
         echo $this->twig->render('index.html', ['connectUser' =>   $connectUser]);
         
