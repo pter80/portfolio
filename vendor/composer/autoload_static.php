@@ -190,7 +190,7 @@ class ComposerStaticInit0b43cfe45c47c464d2c5c2d3c26cd523
     );
 
     public static $fallbackDirsPsr0 = array (
-        0 => __DIR__ . '/../..' . '/src',
+        0 => __DIR__ . '/../..' . '/Attributes',
     );
 
     public static $classMap = array (

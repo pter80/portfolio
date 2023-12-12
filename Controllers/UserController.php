@@ -3,27 +3,18 @@
 namespace Controllers;
 
 use User;
-//use Securite;
-
-use Securite;
-
-
-
-#[Securite('Hello world', 42)]
-class Foo {}
 
 class UserController extends Controller
 {
-    
+    #[Securite('Connected',false)]
     public function login($params) 
     {
+        
         //$test=new Securite();
         //$test2=new User();
-        $reflection = new \ReflectionClass(Foo::class);
-        $attributes=$reflection->getAttributes();
-        $attribute=$attributes[0];
-        $attr=$attribute->newInstance();
-        var_dump($attr->test());
+        /*
+       
+        */
         
         
         echo $this->twig->render('user/login.html', ["message"=>$params["message"]]); 

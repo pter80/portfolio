@@ -16,11 +16,12 @@ class Securite {
         $this->data2=$data2;
         
     }
-    #[Check]
+    
     function test() {
         echo $this->data1;
     }
     function checkAdmin() {
+        if ($this->data1="Connected") echo "Connected";
         if ($_SESSION['logged']) {
             echo "logged";die;
         }
