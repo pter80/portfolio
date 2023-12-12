@@ -2,6 +2,8 @@
 // src/User.php
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\ManyToOne;
+//use Doctrine\ORM\Mapping\Blob;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'users')]
@@ -11,12 +13,31 @@ class User
     #[ORM\Column(type: 'integer')]
     #[ORM\GeneratedValue]
     private int|null $id = null;
+    
+    
+    
     #[ORM\Column(type: 'string')]
     private string $nom;
     #[ORM\Column(type: 'string')]
     private string $prenom;
-    #[ORM\Column(type: 'string', length: 12, nullable: true)]
+    
+    #[ORM\Column(type: 'string')]
+    private string $login;
+    #[ORM\Column(type: 'string', length:12)]
     private string $password;
+    
+    #[ORM\Column(type: 'string', nullable: true)]
+    private string $avatar;
+    
+    
+/*
+    #[ManyToOne(targetEntity: Address::class)]
+    #[JoinColumn(name: 'address_id', referencedColumnName: 'id')]
+    private Address|null $address = null;
+    */
+   
+
+   
     /**
      * Get id.
      *
@@ -76,6 +97,30 @@ class User
     }
 
     /**
+     * Set login.
+     *
+     * @param string $login
+     *
+     * @return User
+     */
+    public function setLogin($login)
+    {
+        $this->login = $login;
+
+        return $this;
+    }
+
+    /**
+     * Get login.
+     *
+     * @return string
+     */
+    public function getLogin()
+    {
+        return $this->login;
+    }
+
+    /**
      * Set password.
      *
      * @param string $password
@@ -97,5 +142,29 @@ class User
     public function getPassword()
     {
         return $this->password;
+    }
+
+    /**
+     * Set avatar.
+     *
+     * @param string|null $avatar
+     *
+     * @return User
+     */
+    public function setAvatar($avatar = null)
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    /**
+     * Get avatar.
+     *
+     * @return string|null
+     */
+    public function getAvatar()
+    {
+        return base64_encode($this->avatar);
     }
 }

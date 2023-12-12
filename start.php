@@ -8,7 +8,7 @@ use Doctrine\ORM\ORMSetup;
 
 //use User;
 
-$paths = array("src/Entity","toto");
+//$paths = array("src/Entity","toto");
 $isDevMode = true;
 $proxyDir=null;
 $cache=null;
@@ -20,7 +20,7 @@ $dbParams = array(
     'dbname'   => 'BTS',
 );
 $useSimpleAnnotationReader = false;
-$config = ORMSetup::createAttributeMetadataConfiguration(array(__DIR__."/src/Entity"), $isDevMode, $proxyDir, $cache, $useSimpleAnnotationReader);
+$config = ORMSetup::createAttributeMetadataConfiguration(array(__DIR__."/src/"), $isDevMode, $proxyDir, $cache, $useSimpleAnnotationReader);
 //$config = Setup::createAnnotationMetadataConfiguration($paths, $isDevMode);
 $entityManager = EntityManager::create($dbParams, $config);
 
@@ -31,14 +31,11 @@ $target = isset($_GET['t']) ? $_GET['t'] : "index";
 $getParams = isset($_GET['c']) ? $_GET['c'] : null;
 $postParams = isset($_POST) ? $_POST : null;
 
-
-$config = ORMSetup::createAttributeMetadataConfiguration(array(__DIR__."/src"), $isDevMode, $proxyDir, $cache, $useSimpleAnnotationReader);
-//$config = Setup::createAnnotationMetadataConfiguration($paths, $isDevMode);
-$entityManager = EntityManager::create($dbParams, $config);
-
 $params = array(array(
-    "url"=>"http://195.154.118.169/pter/site/",
+    "url"=>"http://195.154.118.169/pter/portfolio/start.php",
+    "message"=>(isset($_GET["message"])?$_GET['message']:""),
     "get"=>$getParams,
+    "post"=>$postParams,
     "em"=>$entityManager
 ));
 

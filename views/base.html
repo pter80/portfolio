@@ -5,14 +5,13 @@
         {% block stylesheet  %}
         {% endblock %}
         <title>{% block title %} Home {% endblock %}</title>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
+  
+        <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
     </head> 
     <body>
-        <h1>Base HTML plop</h1>
-        Get  -{{ params['get'] }}-
-        <ul>
-            <li><a href={{ url }}"start.php?c=user&t=create">Création</a></li>
-            <li><a href={{ url }}"start.php?c=user&t=liste">Liste</a></li>
-        </ul>
+        <h1>Base HTML</h1>
+       
         {% block body %}
         {% endblock %}
        

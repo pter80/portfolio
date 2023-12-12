@@ -6,15 +6,10 @@
 
 {% block body %}
     <h1>Création d'un utilisateur</h1>
-    <form action="?c=user&t=insert" method="POST">
+    <form action="?c=user&t=insert" method="POST" enctype="multipart/form-data">
         Nom : <input type="text" name="nom"><br/>
         Prénom : <input type="text" name="prenom"><br/>
-        Ville : <select name=ville> 
-        
-            {% for ville in villes %}
-               <option value={{ ville.ville_id }}> {{ ville.ville_nom }}</option>
-            {% endfor %}
-        </select>
+        Avatar : <input type="file" name="avatar"><br/>
         <input type="submit">
     </form>
 {% endblock %}
