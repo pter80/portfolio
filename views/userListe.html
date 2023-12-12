@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block stylesheet %}
+{% endblock %}
+
+
+{% block body %}
+    
+	"l'utlisateur est : " {{connectUser}}
+	{% for user in users %}
+	    <p>{{ user.nom }}-{{ user.prenom }} <img src="data:image/png;base64,{{ user.avatar }}"/></p>
+	{% endfor %}
+{% endblock %}
+
+
+
+

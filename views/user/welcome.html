@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block stylesheet %}
+{% endblock %}
+
+
+{% block body %}
+    <h1>Bienvenue</h1>
+    {{ user.nom }}
+    <img src="data:image/png;base64,{{ user.avatar }}"/>
+{% endblock %}
