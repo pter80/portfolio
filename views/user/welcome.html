@@ -8,5 +8,5 @@
     <h1>Bienvenue</h1>
     {{ user.nom }}
     <img src="data:image/png;base64,{{ user.avatar }}"/>
-    {{ user.dateNaissance|date("m/d/Y") }}
+    {{ user.dateNaissance|format_datetime("full","full",pattern="d MMMM YYYY",locale='fr') }}
 {% endblock %}

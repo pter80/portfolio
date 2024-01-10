@@ -20,6 +20,7 @@ class ComposerStaticInit0b43cfe45c47c464d2c5c2d3c26cd523
     public static $prefixLengthsPsr4 = array (
         'T' => 
         array (
+            'Twig\\Extra\\Intl\\' => 16,
             'Twig\\' => 5,
         ),
         'S' => 
@@ -36,6 +37,7 @@ class ComposerStaticInit0b43cfe45c47c464d2c5c2d3c26cd523
             'Symfony\\Component\\VarExporter\\' => 30,
             'Symfony\\Component\\String\\' => 25,
             'Symfony\\Component\\Routing\\' => 26,
+            'Symfony\\Component\\Intl\\' => 23,
             'Symfony\\Component\\Console\\' => 26,
             'Symfony\\Component\\Cache\\' => 24,
         ),
@@ -66,6 +68,10 @@ class ComposerStaticInit0b43cfe45c47c464d2c5c2d3c26cd523
     );
 
     public static $prefixDirsPsr4 = array (
+        'Twig\\Extra\\Intl\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/twig/intl-extra',
+        ),
         'Twig\\' => 
         array (
             0 => __DIR__ . '/..' . '/twig/twig/src',
@@ -117,6 +123,10 @@ class ComposerStaticInit0b43cfe45c47c464d2c5c2d3c26cd523
         'Symfony\\Component\\Routing\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/routing',
+        ),
+        'Symfony\\Component\\Intl\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/intl',
         ),
         'Symfony\\Component\\Console\\' => 
         array (

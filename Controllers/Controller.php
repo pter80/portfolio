@@ -3,6 +3,8 @@
 namespace Controllers;
 use \Twig\src\Loader;
 use \Twig_Environment;
+use \Twig\Extra\Intl\IntlExtension;
+
 //use Securite;
 
 
@@ -27,6 +29,7 @@ class Controller
             'cache' => false,
             'debug' => true,
         ));
+        $this->twig->addExtension(new IntlExtension());
         $this->twig->addExtension(new \Twig\Extension\DebugExtension());
         
         

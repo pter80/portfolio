@@ -15,6 +15,7 @@
         "doctrine/dbal": "^3.7",
         "symfony/cache": "^6.3",
         "doctrine/annotations": "^2.0",
-        "symfony/translation-contracts": "^3.3"
+        "symfony/translation-contracts": "^3.3",
+        "twig/intl-extra": "^3.8"
     }
 }
