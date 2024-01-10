@@ -19,7 +19,7 @@ class Competence
     private string $short_lib;
     #[ORM\Column(type: 'text')]
     private string $long_lib;
-    #[ORM\Column(type: 'int')]
+    #[ORM\Column(type: 'integer')]
     private int $ordre;
     
     #[ORM\ManyToMany(targetEntity: Realisation::class, mappedBy: 'competences')]

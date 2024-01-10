@@ -25,10 +25,10 @@ class User
     private string $login;
     #[ORM\Column(type: 'string', length:12)]
     private string $password;
-    
     #[ORM\Column(type: 'string', nullable: true)]
     private string $avatar;
-    
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private datetime $dateNaissance;
     
 /*
     #[ManyToOne(targetEntity: Address::class)]
@@ -166,5 +166,29 @@ class User
     public function getAvatar()
     {
         return base64_encode($this->avatar);
+    }
+
+    /**
+     * Set dateNaissance.
+     *
+     * @param \DateTime|null $dateNaissance
+     *
+     * @return User
+     */
+    public function setDateNaissance($dateNaissance = null)
+    {
+        $this->dateNaissance = $dateNaissance;
+
+        return $this;
+    }
+
+    /**
+     * Get dateNaissance.
+     *
+     * @return \DateTime|null
+     */
+    public function getDateNaissance()
+    {
+        return $this->dateNaissance;
     }
 }
