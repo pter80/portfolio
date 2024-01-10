@@ -4,28 +4,30 @@ namespace Controllers;
 
 use User;
 
+
+
+
 class UserController extends Controller
 {
-    #[Securite('Connected',false)]
+    #[Role('Anonym')]
     public function login($params) 
     {
-        
-        //$test=new Securite();
-        //$test2=new User();
-        /*
-       
-        */
-        
-        
         echo $this->twig->render('user/login.html', ["message"=>$params["message"]]); 
     }
+
+    #[Role('Anonym')]
+    public function logout($params) 
+    {
+        $_SESSION['Loged']=false;
+        header("Location: ".$url."?c=user&t=login&message=Vous etes déconnecté");
+        exit;
+    }
     
-    
+    #[Role('Anonym')]
     public function check($params)
     {
         $em = $params['em'];
         $url= $params['url'];
-        var_dump($params['post']);
         $login=$params['post']['login'];
         $password=$params['post']['password'];
         //Version simplifiée du controle de mot de passe
@@ -34,26 +36,29 @@ class UserController extends Controller
         $qb = $em->createQueryBuilder();
         $qb->select('u')
             ->from('User', 'u')
-            ->where('u.login = ?1')
-            ->setParameter(1,$login )
+            ->where('u.login = :login')
+            ->setParameter("login",$login )
         ;
         
-       
+        
         $query = $qb->getQuery();
         $users= $query->getResult();
+        
         if (sizeof($users)>0 ) {
             $user=$users[0];
+            
             if ($user->getPassword() == $password) {
-                $_SESSION['loged']=true;
+                echo "User OK";
+                $_SESSION['Loged']=true;
                 $_SESSION['user']=$user;
+                //$this->welcome($params);
                 header("Location: ".$url."?c=user&t=welcome");
-                
-                exit;
+                die;
             }
             else {
-                $_SESSION['loged']=false;
+                $_SESSION['Loged']=false;
                 header("Location: ".$url."?c=user&t=login&message=Mot de passe incorrect");
-                exit;
+                die;
                 
             }
         }
@@ -61,12 +66,13 @@ class UserController extends Controller
             $user=null;
             $_SESSION['loged']=false;
             header("Location: ".$url."?c=user&t=login&message=Cet utilisateur n'existe pas");
-            exit;
+            die;
         }
         
         
     }
     
+    #[Role('Admin')]
     public function welcome($params) 
     {
         $user=$_SESSION['user'];
@@ -106,7 +112,7 @@ class UserController extends Controller
         echo $this->twig->render('userListe.html', ['connectUser' =>   $connectUser,'users'=>$users]);
         
     }
-    #[Route('/blog', name: 'blog_list')]
+    
     public function create($params) {
         
         
@@ -124,3 +130,4 @@ class UserController extends Controller
     
     
 }
+?>

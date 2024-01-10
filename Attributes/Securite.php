@@ -11,7 +11,7 @@ class Securite {
     
     
     function __construct($data1,$data2) {
-        echo "Admin construct";
+        //echo "Admin construct";
         $this->data1=$data1;
         $this->data2=$data2;
         

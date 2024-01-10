@@ -5,8 +5,7 @@
 			
 		},
         "psr-0": {
-            "": "src/",
-            "": "Attributes"
+            "": "src/"
         }
 	},
     "require": {

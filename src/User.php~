@@ -143,4 +143,28 @@ class User
     {
         return $this->password;
     }
+
+    /**
+     * Set avatar.
+     *
+     * @param string|null $avatar
+     *
+     * @return User
+     */
+    public function setAvatar($avatar = null)
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    /**
+     * Get avatar.
+     *
+     * @return string|null
+     */
+    public function getAvatar()
+    {
+        return base64_encode($this->avatar);
+    }
 }

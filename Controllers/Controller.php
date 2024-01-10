@@ -3,10 +3,9 @@
 namespace Controllers;
 use \Twig\src\Loader;
 use \Twig_Environment;
-use Securite;
+//use Securite;
 
-#[Securite('d1','d2')]
-class Foo{}
+
 
 class Controller
 {
@@ -30,10 +29,6 @@ class Controller
         ));
         $this->twig->addExtension(new \Twig\Extension\DebugExtension());
         
-        $reflection = new \ReflectionClass(Foo::class);
-        $attributes=$reflection->getAttributes();
-        $attribute=$attributes[0];
-        $attr=$attribute->newInstance();
-        var_dump($attr->test());
+        
     }
 }
