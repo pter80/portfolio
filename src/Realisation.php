@@ -2,6 +2,8 @@
 // src/Realisation.php
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\ManyToOne;
+
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -15,6 +17,7 @@ class Realisation
     #[ORM\GeneratedValue]
     private int|null $id = null;
     #[ORM\ManyToOne(targetEntity: Localisation::class)]
+    #[ORM\JoinColumn(name: 'localisation_id', referencedColumnName: 'id')]
     private Localisation|null $localisation = null;
     #[ORM\Column(type: 'string')]
     private string $lib;

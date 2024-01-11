@@ -28,7 +28,7 @@ class User
     #[ORM\Column(type: 'string', nullable: true)]
     private string $avatar;
     #[ORM\Column(type: 'datetime', nullable: true)]
-    private datetime $dateNaissance;
+    private DateTime $dateNaissance;
     
 /*
     #[ManyToOne(targetEntity: Address::class)]

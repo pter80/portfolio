@@ -4,10 +4,6 @@ namespace Controllers;
 
 use Realisations;
 
-
-
-
-
 class PortfolioController extends Controller
 {
     #[Role('Anonym')]
@@ -17,9 +13,12 @@ class PortfolioController extends Controller
         $qb = $em->createQueryBuilder();
         $qb->select('r')
             ->from('Realisation', 'r')
-            ->join('Localisation', 'l')
-            ->orderBy('l.id')
+            //->join('Localisation', 'l')
+            ->leftJoin('r.localisation', 'l')
+            //->leftJoin('Localisation','l',\Doctrine\ORM\Query\Expr\Join::WITH,'r.localisation = l.id')
+            ->orderBy('l.id') 
         ;
+        //var_dump($qb->getQuery()->getSql());
         $query = $qb->getQuery();
         $realisations= $query->getResult();
         
