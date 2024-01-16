@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block stylesheet %}
+    <style>
+        table, th,td {
+            border-collapse: collapse;
+            border: 1px solid black;
+        }
+        .ok {
+            background-color: green;
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+
+
+{% block body %}
+    <table>
+        <tr>
+            <th width=30%>Réalisations</th>
+            {% for competence in competences %}
+                <th>{{ competence.shortLib }}</th>
+            {% endfor %}
+        </tr>
+        <tr>
+            <td style="background-color: grey"></td>
+            {% for competence in competences %}
+                <td>{{ competence.longLib }}</td>
+            {% endfor %}
+        </tr>
+        
+        {% set lastLocalisationId=0 %}
+        {% for realisation in realisations %}
+            {% if lastLocalisationId != realisation.localisation.id %}
+                <tr>
+                    {% set lastLocalisationId=realisation.localisation.id %}
+                    <td>{{ realisation.localisation.longLib }}</td>
+                </tr>
+            {% endif %}
+            <tr>
+                <td>
+                    {{ realisation.lib }}
+                </td>
+            
+                {% for competence in competences %}
+                    {% set comp="" %}
+                    {% for realComp in realisation.competences %}
+                        {% if realComp.id == competence.id %}
+                            {% set comp="OK" %}
+                            
+                        {% endif %}
+                    {% endfor %}
+                    
+                    {% if (comp=="OK") %}
+                        <td class="delNewComp {{ comp }}" id="{{realisation.id}}-{{competence.id}}" data-real_id={{ realisation.id }} data-comp_id={{ competence.id }}>
+                    {% else %}
+                        <td class="setNewComp" id="{{realisation.id}}-{{competence.id}}" data-real_id={{ realisation.id }} data-comp_id={{ competence.id }}>
+                    {% endif %}
+                        
+                        {{ comp }}
+                    </td>
+                {% endfor %}
+            
+            </tr>
+            
+        {% endfor %}
+    </table>
+    <script>
+        $(".delNewComp").click(function() {
+           console.log("Del Comp");  
+           $.ajax({
+              type: "POST",
+              url: "?c=portfolio&t=deleteNewCompetence",
+              data: {real:this.dataset.real_id,comp:this.dataset.comp_id},
+              complete: function(result){
+                  resultObj=JSON.parse(result.responseText);
+                  console.log("Succès",JSON.parse(result.responseText));
+                  $("#"+resultObj.real_id+"-"+resultObj.comp_id).text("");
+              },
+              dataType: "html"
+            });
+        });
+        $(".setNewComp").click(function(){
+            console.log("Add Comp",$(this)[0].dataset);
+            $.ajax({
+              type: "POST",
+              url: "?c=portfolio&t=insertNewCompetence",
+              data: {real:this.dataset.real_id,comp:this.dataset.comp_id},
+              complete: function(result){
+                  resultObj=JSON.parse(result.responseText);
+                  console.log("Succès",JSON.parse(result.responseText));
+                  $("#"+resultObj.real_id+"-"+resultObj.comp_id).text("OK");
+              },
+              dataType: "json"
+            });
+        });
+        
+        
+        function insertNewCompetence(comp_id,real_id) {
+            alert ("Insert new Compétence"+comp_id+real_id);
+            
+        }
+    </script>
+{% endblock %}
+

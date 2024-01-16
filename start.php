@@ -14,7 +14,7 @@ class Role {
     private $data1;
     
     function __construct($data1) {
-        echo "Role construct";
+        //echo "Role construct";
         $this->data1=$data1;
     }
 }
@@ -66,17 +66,17 @@ $goTo=false;
 
 //echo "SESSION1";if(array_key_exists('Loged',$_SESSION)) var_dump($_SESSION['Loged']);
 $reflection = new \ReflectionClass($class);
-echo "<ul>";
+//echo "<ul>";
 $namespaceName=$reflection->getNamespaceName();
 foreach ($reflection->getMethods() as $method) {
     
     if ($target== $method->getName()) {
         $attributes = $method->getAttributes(\Controllers\Role::class);
         foreach ($attributes as $attribute) {
-            echo "<li>";
-            echo $attribute->getName();
+            //echo "<li>";
+            //echo $attribute->getName();
             if("Controllers\Role"==$attribute->getName()) {
-                var_dump($attribute->getArguments());
+                //var_dump($attribute->getArguments());
                 switch ($attribute->getArguments()[0]) { 
                     case "Anonym" :
                         $goTo = true;
@@ -91,7 +91,7 @@ foreach ($reflection->getMethods() as $method) {
                     
                 }
             }
-            echo "</li>";
+            //echo "</li>";
             
         }    
     }
