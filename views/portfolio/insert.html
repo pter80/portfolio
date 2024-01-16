@@ -52,13 +52,14 @@
                     {% endfor %}
                     
                     {% if (comp=="OK") %}
-                        <td class="delNewComp {{ comp }}" id="{{realisation.id}}-{{competence.id}}" data-real_id={{ realisation.id }} data-comp_id={{ competence.id }}>
+                        <td class="manageComp delNewComp ok" id="{{realisation.id}}-{{competence.id}}" data-real_id={{ realisation.id }} data-comp_id={{ competence.id }}>
+                            {{ comp }}
+                        </td>
                     {% else %}
-                        <td class="setNewComp" id="{{realisation.id}}-{{competence.id}}" data-real_id={{ realisation.id }} data-comp_id={{ competence.id }}>
+                        <td class="manageComp addNewComp" id="{{realisation.id}}-{{competence.id}}" data-real_id={{ realisation.id }} data-comp_id={{ competence.id }}>
+                            {{ comp }}
+                        </td>
                     {% endif %}
-                        
-                        {{ comp }}
-                    </td>
                 {% endfor %}
             
             </tr>
@@ -66,40 +67,43 @@
         {% endfor %}
     </table>
     <script>
-        $(".delNewComp").click(function() {
-           console.log("Del Comp");  
-           $.ajax({
-              type: "POST",
-              url: "?c=portfolio&t=deleteNewCompetence",
-              data: {real:this.dataset.real_id,comp:this.dataset.comp_id},
-              complete: function(result){
-                  resultObj=JSON.parse(result.responseText);
-                  console.log("Succès",JSON.parse(result.responseText));
-                  $("#"+resultObj.real_id+"-"+resultObj.comp_id).text("");
-              },
-              dataType: "html"
-            });
-        });
-        $(".setNewComp").click(function(){
-            console.log("Add Comp",$(this)[0].dataset);
-            $.ajax({
-              type: "POST",
-              url: "?c=portfolio&t=insertNewCompetence",
-              data: {real:this.dataset.real_id,comp:this.dataset.comp_id},
-              complete: function(result){
-                  resultObj=JSON.parse(result.responseText);
-                  console.log("Succès",JSON.parse(result.responseText));
-                  $("#"+resultObj.real_id+"-"+resultObj.comp_id).text("OK");
-              },
-              dataType: "json"
-            });
-        });
-        
-        
-        function insertNewCompetence(comp_id,real_id) {
-            alert ("Insert new Compétence"+comp_id+real_id);
+        $(".manageComp").click(function() {
+            console.log("Click",$(this));
             
-        }
+            if ($(this).hasClass("delNewComp")) {
+               console.log("Del Comp");  
+               $.ajax({
+                  type: "POST",
+                  url: "?c=portfolio&t=deleteNewCompetence",
+                  data: {real:this.dataset.real_id,comp:this.dataset.comp_id},
+                  complete: function(result){
+                      resultObj=JSON.parse(result.responseText);
+                      console.log("Succès",JSON.parse(result.responseText));
+                      $("#"+resultObj.real_id+"-"+resultObj.comp_id).removeClass("delNewComp ok").addClass("addNewComp").text(""); 
+                  },
+                  dataType: "json"
+                });
+            }
+            
+            if ($(this).hasClass("addNewComp")) {
+                console.log("Add Comp");
+                $.ajax({
+                  type: "POST",
+                  url: "?c=portfolio&t=insertNewCompetence",
+                  data: {real:this.dataset.real_id,comp:this.dataset.comp_id},
+                  complete: function(result){
+                      resultObj=JSON.parse(result.responseText);
+                      console.log("Succès",JSON.parse(result.responseText));
+                      $("#"+resultObj.real_id+"-"+resultObj.comp_id).text("OK").removeClass("addNewComp").addClass("delNewComp ok");
+                      
+                  },
+                  dataType: "json"
+                });
+            };
+            
+        })
+        
+    
     </script>
 {% endblock %}
 
