@@ -69,7 +69,13 @@
     <script>
         $(".manageComp").click(function() {
             console.log("Click",$(this));
-            
+            /*
+                Gestion des appels AJAX en cas d'ajout ou de retrait de compétence à une rélalisation
+                On peut utiliser plusieurs méthoses pour récupérer la cellule sur laquelle l'utilisatuer a 
+                cliqué. Soit l'utilsation d'un id soit l'utilisateion des data- dans les balises html.
+                La gestion des class de la cellule permet de savoir si on ajoute ou on retire une 
+                compétence. 
+            */
             if ($(this).hasClass("delNewComp")) {
                console.log("Del Comp");  
                $.ajax({

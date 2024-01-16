@@ -60,6 +60,9 @@ class PortfolioController extends Controller
         echo $this->twig->render('portfolio/insert.html', ["realisations"=>$realisations,'competences'=>$competences,"params"=>$params]);
     }
    
+    /*
+        Cette fonction permet d'ajouter une compétence à une réalisation et est utilisé lors d'un appel AJAX
+    */
     #[Role('Anonym')] 
     public function insertNewCompetence($params) {
         //var_dump($params['post']["real"],$params['post']["comp"]);
@@ -71,6 +74,9 @@ class PortfolioController extends Controller
         $em->flush();
         echo json_encode(array('result'=>'OK',"real_id"=>$realisation->getId(),"comp_id"=>$competence->getId()));
     }
+    /*
+        Cette fonction permet de supprimer une compétence à une réalisation et est utilisé lors d'un appel AJAX
+    */
     #[Role('Anonym')] 
     public function deleteNewCompetence($params) {
         //var_dump($params['post']["real"],$params['post']["comp"]);
