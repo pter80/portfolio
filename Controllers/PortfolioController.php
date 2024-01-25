@@ -32,7 +32,8 @@ class PortfolioController extends Controller
         
         
         //var_dump($realisations[0]->getCompetences()[0]);
-        echo $this->twig->render('portfolio/display.html', ["realisations"=>$realisations,'competences'=>$competences,"params"=>$params]);
+        //echo $this->twig->render('portfolio/display.html', ["realisations"=>$realisations,'competences'=>$competences,"params"=>$params]);
+        echo $this->twig->render('portfolio/update_vue.html', ["realisations"=>$realisations,'competences'=>$competences,"params"=>$params]);
     }
     
     #[Role('Anonym')]
@@ -87,5 +88,34 @@ class PortfolioController extends Controller
         $em->persist($realisation);
         $em->flush();
         echo json_encode(array('result'=>'DELETE OK',"real_id"=>$realisation->getId(),"comp_id"=>$competence->getId()));
+    }
+    
+    #[Role('Anonym')] 
+    public function updateNewCompetence($params) {
+        //var_dump($params['post']);
+        $em = $params['em'];
+        $competenceToDel = $em->find("Competence",$params['post']["comp"]);
+        $realisation = $em->find("Realisation",$params['post']["real"]);
+        $result="Insert";
+        
+        $deSynth=false;
+        $competences=$realisation->getCompetences();
+        
+        foreach($competences as $competence) {
+            if ($competence->getId()==$params['post']['comp']) {
+                $deSynth=true;
+                
+            }
+        }
+        if ($deSynth) {
+            $realisation->removeCompetence($competenceToDel);
+            $result="delete";
+        }
+        else {
+            $realisation->addCompetence($competenceToDel);       
+        }
+        $em->persist($realisation);
+        $em->flush();
+        echo json_encode(array('result'=>$result,"real_id"=>$realisation->getId(),"comp_id"=>$competence->getId()));
     }
 }

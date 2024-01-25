@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block stylesheet %}
+    <style>
+        table, th,td {
+            border-collapse: collapse;
+            border: 1px solid black;
+        }
+        .ok {
+            background-color: green;
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+
+
+{% block body %}
+    <div id="app">[[ message ]] * [[ info ]] **
+        <table>
+            <tr>
+                <th width=30%>Réalisations</th>
+                {% for competence in competences %}
+                    <th>{{ competence.shortLib }}</th>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td style="background-color: grey"></td>
+                {% for competence in competences %}
+                    <td>{{ competence.longLib }}</td>
+                {% endfor %}
+            </tr>
+            
+            {% set lastLocalisationId=0 %}
+            {% for realisation in realisations %}
+                {% if lastLocalisationId != realisation.localisation.id %}
+                    <tr>
+                        {% set lastLocalisationId=realisation.localisation.id %}
+                        <td>{{ realisation.localisation.longLib }}</td>
+                    </tr>
+                {% endif %}
+                <tr>
+                    <td>
+                        {{ realisation.lib }}
+                    </td>
+                
+                    {% for competence in competences %}
+                        {% set comp="" %}
+                        {% for realComp in realisation.competences %}
+                            {% if realComp.id == competence.id %}
+                                {% set comp="OK" %}
+                                
+                            {% endif %}
+                        {% endfor %}
+                        <td class="{{comp}}" @click="synth({{competence.id}},{{realisation.id}})">
+                            {{ comp }}
+                        </td>
+                    {% endfor %}
+                
+                </tr>
+                
+            {% endfor %}
+        </table>
+    </div>
+    {% endblock %}
+
+{% block javascript %}
+<script>
+/* global Vue axios*/
+  const { createApp, ref } = Vue
+  
+  createApp({
+    delimiters: ["[[","]]"],
+    methods: {
+       synth(comp_id,real_id) {
+           console.log("plop",comp_id,real_id);
+           const datas={comp:comp_id,real:real_id};
+           console.log(datas);
+           axios({
+              method: 'POST',
+              url: '?c=portfolio&t=updateNewCompetence',
+              data: {comp:comp_id,real:real_id},
+              headers: {
+                'Content-Type': 'multipart/form-data'
+              }
+            });
+           } 
+    },
+    mounted () {
+        console.log("Monté");
+        axios
+          .get('https://api.coindesk.com/v1/bpi/currentprice.json')
+          .then(function() {
+              response => (this.info = response)
+            })
+          
+    },
+    setup() {
+      const message = ref('Bonjour Philippe!')
+      const info = ref('Plip')
+      return {
+        message,info
+      }
+    }
+  }).mount('#app')
+</script>
+{% endblock %}
+
