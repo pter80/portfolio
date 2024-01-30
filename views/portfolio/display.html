@@ -15,9 +15,14 @@
 
 
 {% block body %}
+    <div class="widget">
+      <h1>Widget Buttons</h1>
+      <button>A button element</button>
+    </div>
+     
     <table>
         <tr>
-            <th width=30%>Réalisations</th>
+            <th width=30%>Réalisation</th>
             {% for competence in competences %}
                 <th>{{ competence.shortLib }}</th>
             {% endfor %}
@@ -58,5 +63,59 @@
             
         {% endfor %}
     </table>
+    <div id="dialog-form" title="Basic dialog">
+        <form>
+            <fieldset>
+              <label for="login">Identifiant</label>
+              <input type="text" name="login" id="login" value="" class="text ui-widget-content ui-corner-all">
+              <label for="password">Mot de passe</label>
+              <input type="text" name="password" id="password" value="" class="text ui-widget-content ui-corner-all">
+            </fieldset>
+          </form>
+    </div>
+    
+    
+    
+    <script>
+    /* global $ */
+    $(function() {
+        
+        $( ".widget input[type=submit], .widget a, .widget button" ).button();
+        $( "button, input, a" ).on( "click", function( event ) {
+          event.preventDefault();
+          $("#dialog-form").dialog("open");
+          
+        });
+        
+        function addUser(){
+            console.log("s'indentifier");
+        }
+        
+        dialog = $( "#dialog-form" ).dialog({
+          autoOpen: false,
+          height: 400,
+          width: 550,
+          modal: true,
+          buttons: {
+            "S'identifier": addUser,
+            Annuler: function() {
+              dialog.dialog( "close" );
+            }
+          },
+          
+        });
+     
+        form = dialog.find( "form" ).on( "submit", function( event ) {
+          event.preventDefault();
+          
+          addUser();
+        });
+     
+        
+   
+    
+    })
+    
+    </script>
 {% endblock %}
 

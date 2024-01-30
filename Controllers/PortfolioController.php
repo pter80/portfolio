@@ -33,7 +33,7 @@ class PortfolioController extends Controller
         
         //var_dump($realisations[0]->getCompetences()[0]);
         //echo $this->twig->render('portfolio/display.html', ["realisations"=>$realisations,'competences'=>$competences,"params"=>$params]);
-        echo $this->twig->render('portfolio/update_vue.html', ["realisations"=>$realisations,'competences'=>$competences,"params"=>$params]);
+        echo $this->twig->render('portfolio/display.html', ["realisations"=>$realisations,'competences'=>$competences,"params"=>$params]);
     }
     
     #[Role('Anonym')]

@@ -6,21 +6,24 @@
         {% endblock %}
         <title>{% block title %} Home {% endblock %}</title>
         <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
+        <link rel="stylesheet" href="css/jQuery-ui.min.css" />
         <script src="javascript/jQuery.js"></script>
         <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
         <script src="javascript/vue.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="javascript/jQuery-ui.min.js"></script>
         
     </head> 
     <body>
         <h1>Base HTML</h1>
         
         <a href="start.php?c=user&t=logout">Logout</a>
+        
         {% block body %}
         {% endblock %}
        
         {% block javascript %}
             
         {% endblock %}
-</body>
+    </body>
 </html> 
